@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ER Ghost Scraper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .faq-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .faq-header h1 {
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .faq-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #e94560;
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+        }
+        
+        .faq-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-category h2 {
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e94560;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+        
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .back-button:hover {
+            background: #d13453;
+            transform: translateY(-2px);
+        }
+        
+        .contact-support {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find quick answers to common questions about ER Ghost Scraper</p>
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="faq-search" placeholder="Search FAQs...">
+        </div>
+        
+        <div class="faq-content">
+            <div class="faq-category">
+                <h2>General Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What is ER Ghost Scraper?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>ER Ghost Scraper is a professional desktop application designed for bulk data extraction from our pre-loaded Russian server database. It allows users to efficiently collect and process large amounts of data with an easy-to-use interface.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What kind of data is available in your database?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our Russian server database contains extensive pre-collected data from various sources, including business information, contact details, and other valuable datasets. The exact content varies and is regularly updated to ensure data freshness and relevance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is this a one-time payment or subscription?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All our products are available with a one-time payment. You pay once and get lifetime access to the software. The Standard version includes 1 year of updates, while the Pro version includes lifetime updates and priority support.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Installation & Setup</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What are the system requirements?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Windows:</strong> Windows 10 or later (64-bit)<br>
+                        <strong>RAM:</strong> 4GB minimum, 8GB recommended<br>
+                        <strong>Storage:</strong> 500MB free space<br>
+                        <strong>Internet:</strong> Required for activation and updates</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do I install the software?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>1. Download the ZIP file from your email<br>
+                        2. Extract using password: ghost11-02-2025 (Standard) or ghostpro11-02-2025 (Pro)<br>
+                        3. Run the installer (.exe for Windows)<br>
+                        4. Follow the installation wizard<br>
+                        5. Launch and enter your license key</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        The installer is blocked by my antivirus. What should I do?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>This is a common false positive with data extraction software. You can temporarily disable your antivirus during installation, or add the software to your antivirus exclusion list. Our software is completely safe and does not contain any malware.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Payment & Licensing</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What payment methods do you accept?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept various cryptocurrency payments including Bitcoin (BTC), Ethereum (ETH), USDT (TRC20), and Binance payments. This ensures fast, secure, and anonymous transactions for our users.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How long does it take to receive my license after payment?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>License keys and download links are typically delivered within 24 hours after payment confirmation. In most cases, you'll receive them within a few hours. If you haven't received anything after 24 hours, please contact our support.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I use the software on multiple computers?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Each license is valid for installation on one computer only. If you need to use the software on multiple machines, you'll need to purchase additional licenses. The license is tied to the hardware of your computer.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Technical Support</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do I get technical support?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide support through multiple channels:<br>
+                        - <strong>WhatsApp:</strong> +8801795541326 (Fastest response)<br>
+                        - <strong>Email:</strong> er.mailer2@yahoo.com<br>
+                        Standard license holders receive email support, while Pro users get priority support with faster response times.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What should I include when contacting support?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To help us resolve your issue quickly, please include:<br>
+                        - Your license key<br>
+                        - Detailed description of the problem<br>
+                        - Screenshots if applicable<br>
+                        - Your operating system version<br>
+                        - Steps to reproduce the issue</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do you offer refunds?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Due to the digital nature of our product, we generally do not offer refunds once the software has been downloaded. However, we may consider refunds in exceptional circumstances where the software is completely non-functional and our technical team cannot resolve the issue. Please see our Refund Policy for details.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-support">
+                <h3>Still Have Questions?</h3>
+                <p>Our support team is ready to help you with any questions or issues you may have.</p>
+                <p><strong>WhatsApp:</strong> +8801795541326 | <strong>Email:</strong> er.mailer2@yahoo.com</p>
+            </div>
+            
+            <a href="index.html" class="back-button">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Toggle FAQ answers
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                answer.classList.add('active');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+
+        // FAQ search functionality
+        document.getElementById('faq-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Add Font Awesome for icons
+        const fontAwesome = document.createElement('link');
+        fontAwesome.rel = 'stylesheet';
+        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+        document.head.appendChild(fontAwesome);
+    </script>
+</body>
+</html>
