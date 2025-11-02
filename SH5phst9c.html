@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Ghost Scraper - Professional Web Scraping Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --dark: #0d0d1a;
+            --success: #2ecc71;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--highlight);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--highlight);
+            transition: width 0.3s;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--highlight);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><path fill="white" d="M500,100C229.4,100,10,319.4,10,590s219.4,490,490,490s490-219.4,490-490S770.6,100,500,100z M500,900c-170.7,0-310-139.3-310-310s139.3-310,310-310s310,139.3,310,310S670.7,900,500,900z"/></svg>');
+            background-size: 300px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--highlight);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: #ff2e53;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--highlight);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--highlight);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 0;
+            background-color: #f5f7fa;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--highlight);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .product-header {
+            background: var(--gradient);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .product-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--highlight);
+            margin: 1rem 0;
+        }
+
+        .product-body {
+            padding: 2.5rem 2rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .product-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+
+        .product-features li i {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .download-info {
+            background-color: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--highlight);
+        }
+
+        .download-info strong {
+            color: var(--primary);
+        }
+
+        /* Payment Section */
+        .payment {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .payment-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .payment-method {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-method:hover {
+            border-color: var(--highlight);
+            box-shadow: var(--shadow);
+            transform: translateY(-5px);
+        }
+
+        .payment-method h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .payment-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .payment-address {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            word-break: break-all;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .payment-address:hover {
+            background-color: #e9ecef;
+        }
+
+        .payment-address:after {
+            content: 'Copy';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--highlight);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .payment-address:hover:after {
+            opacity: 1;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .qr-code img {
+            max-width: 150px;
+            height: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 5px;
+            background: white;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background-color: #f5f7fa;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            background-color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9fa;
+        }
+
+        .faq-answer {
+            background-color: white;
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--highlight);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--highlight);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--highlight);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-ghost"></i>
+                    <h1>ER Ghost Scraper</h1>
+                </div>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#payment">Payment</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h2>Advanced Data Extraction Solutions</h2>
+                <p>Extract bulk data from our pre-loaded Russian server database with ER Ghost Scraper. Fast, reliable, and completely undetectable.</p>
+                <a href="#products" class="cta-button">Get Started Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose ER Ghost Scraper?</h2>
+                <p>Our desktop applications are specifically designed for efficient bulk data collection with pre-loaded data from our secure Russian servers.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Pre-Loaded Data</h3>
+                    <p>Access our extensive database stored on secure Russian servers. No need to scrape from scratch.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Extract and process bulk data at incredible speeds with our optimized algorithms.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Completely Undetectable</h3>
+                    <p>Our ghost technology ensures your data collection activities remain completely hidden.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Desktop Optimized</h3>
+                    <p>Specifically designed for Windows and macOS with intuitive interfaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Products</h2>
+                <p>Choose the perfect data extraction solution for your needs</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-header">
+                        <h3>ER Ghost Scraper</h3>
+                        <div class="product-price">$49</div>
+                        <p>One-time payment • Lifetime Access</p>
+                    </div>
+                    <div class="product-body">
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> Access to pre-loaded Russian server database</li>
+                            <li><i class="fas fa-check"></i> Basic data extraction capabilities</li>
+                            <li><i class="fas fa-check"></i> Export to CSV, Excel, JSON formats</li>
+                            <li><i class="fas fa-check"></i> Regular updates for 1 year</li>
+                            <li><i class="fas fa-check"></i> Email support</li>
+                            <li><i class="fas fa-check"></i> Windows & macOS compatible</li>
+                        </ul>
+                        <div class="download-info">
+                            <p><strong>Download Password:</strong> ghost2023</p>
+                            <p><strong>File Format:</strong> ZIP (Windows & Mac versions included)</p>
+                        </div>
+                        <a href="#payment" class="cta-button" style="width: 100%; text-align: center;">Buy Now & Download</a>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-badge">PRO</div>
+                    <div class="product-header">
+                        <h3>ER Ghost Scraper Pro</h3>
+                        <div class="product-price">$99</div>
+                        <p>One-time payment • Lifetime Access</p>
+                    </div>
+                    <div class="product-body">
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> All Standard features included</li>
+                            <li><i class="fas fa-check"></i> Extended Russian server database access</li>
+                            <li><i class="fas fa-check"></i> Advanced filtering and data processing</li>
+                            <li><i class="fas fa-check"></i> API access for integration</li>
+                            <li><i class="fas fa-check"></i> Priority support & lifetime updates</li>
+                            <li><i class="fas fa-check"></i> Custom data extraction requests</li>
+                            <li><i class="fas fa-check"></i> Batch processing capabilities</li>
+                        </ul>
+                        <div class="download-info">
+                            <p><strong>Download Password:</strong> ghostpro2023</p>
+                            <p><strong>File Format:</strong> ZIP (Windows & Mac versions included)</p>
+                        </div>
+                        <a href="#payment" class="cta-button" style="width: 100%; text-align: center;">Buy Now & Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment" id="payment">
+        <div class="container">
+            <div class="section-title">
+                <h2>Payment Methods</h2>
+                <p>Choose your preferred payment method to unlock lifetime access</p>
+            </div>
+            <div class="payment-container">
+                <div class="payment-methods" id="starter-payment">
+                    <div class="payment-method fade-in" onclick="togglePaymentDetails('starter-binance')">
+                        <h4><i class="fab fa-bitcoin"></i> Binance</h4>
+                        <div class="payment-details" id="starter-binance">
+                            <p>Send payment to Binance ID:</p>
+                            <div class="payment-address" onclick="copyToClipboard(this)">587230496</div>
+                            <div class="qr-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BinanceID:587230496" alt="Binance QR Code">
+                            </div>
+                            <a href="https://www.binance.com/en" target="_blank" class="btn" style="margin-top: 0.5rem; display: block;">Pay with Binance</a>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method fade-in" onclick="togglePaymentDetails('starter-btc')">
+                        <h4><i class="fab fa-bitcoin"></i> Bitcoin</h4>
+                        <div class="payment-details" id="starter-btc">
+                            <p>Send BTC to this address:</p>
+                            <div class="payment-address" onclick="copyToClipboard(this)">1PWT1Smd2StdCTwm6p66QdbPpwHzpgF49R</div>
+                            <div class="qr-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bitcoin:1PWT1Smd2StdCTwm6p66QdbPpwHzpgF49R" alt="Bitcoin QR Code">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method fade-in" onclick="togglePaymentDetails('starter-eth')">
+                        <h4><i class="fab fa-ethereum"></i> Ethereum</h4>
+                        <div class="payment-details" id="starter-eth">
+                            <p>Send ETH to this address (ERC20):</p>
+                            <div class="payment-address" onclick="copyToClipboard(this)">0xb0de11ffd6f683c774c6e9be89365037855f73d0</div>
+                            <div class="qr-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ethereum:0xb0de11ffd6f683c774c6e9be89365037855f73d0" alt="Ethereum QR Code">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method fade-in" onclick="togglePaymentDetails('starter-usdt')">
+                        <h4><i class="fas fa-coins"></i> USDT (TRC20)</h4>
+                        <div class="payment-details" id="starter-usdt">
+                            <p>Send USDT to this address (TRC20):</p>
+                            <div class="payment-address" onclick="copyToClipboard(this)">TBUxWi9vCaXiNoAxgEtJRnH67C2oieYHjr</div>
+                            <div class="qr-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TRC20:TBUxWi9vCaXiNoAxgEtJRnH67C2oieYHjr" alt="USDT QR Code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our products</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How does the payment and download process work?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After selecting your preferred payment method, complete the transaction. Once payment is confirmed, you'll receive download links and passwords for the software via email within 24 hours. The password for ER Ghost Scraper is "ghost2023" and for Pro version is "ghostpro2023".</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What data is available in your Russian server database?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our Russian servers contain extensive pre-collected data from various sources. The exact content varies but typically includes business information, contact details, and other valuable datasets that can be extracted and processed using our software.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is this a one-time payment or subscription?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All our products are available with a one-time payment. You pay once and get lifetime access to the software with all future updates included.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What operating systems are supported?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our software is compatible with Windows 10/11 and macOS 10.14+. Both versions are included in the download package.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do you offer technical support?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer email support for all our customers. Pro users receive priority support with faster response times. For immediate assistance, you can also contact us via WhatsApp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Need Help? Contact Our Support</h2>
+            <p>Our team is available to answer your questions and provide assistance with our products</p>
+            <a href="https://wa.me/8801795541326" class="whatsapp-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ER Ghost Scraper</h3>
+                    <p>Professional desktop applications for bulk data extraction from our secure Russian server database.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Products</h3>
+                    <ul>
+                        <li><a href="#products">ER Ghost Scraper</a></li>
+                        <li><a href="#products">ER Ghost Scraper Pro</a></li>
+                        <li><a href="#contact">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#faq">Documentation</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">License Agreement</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ER Ghost Scraper. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle payment details
+        function togglePaymentDetails(id) {
+            const details = document.getElementById(id);
+            const allDetails = document.querySelectorAll('.payment-details');
+            
+            allDetails.forEach(item => {
+                if (item.id !== id) {
+                    item.style.display = 'none';
+                }
+            });
+            
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+            } else {
+                details.style.display = 'block';
+            }
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(element) {
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show copied message
+                const originalText = element.textContent;
+                element.textContent = 'Copied!';
+                element.style.backgroundColor = '#d4edda';
+                
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.backgroundColor = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Toggle FAQ answers
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                // Close all other FAQ answers
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-question i').forEach(item => {
+                    item.classList.remove('fa-chevron-up');
+                    item.classList.add('fa-chevron-down');
+                });
+                
+                answer.classList.add('active');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const nav = document.getElementById('nav-menu');
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+            } else {
+                nav.classList.add('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('nav-menu').classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                }
+            });
+        };
+
+        // Set initial state for fade elements
+        fadeElements.forEach(element => {
+            element.style.opacity = "0";
+            element.style.transform = "translateY(20px)";
+            element.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        });
+
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Initial check in case elements are already in view
+        fadeInOnScroll();
+    </script>
+</body>
+</html>
